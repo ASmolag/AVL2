@@ -9,7 +9,7 @@ void utworz_drzewo(avlTree &avl, int wielkosc)
 
 	for (int i = 0; i < wielkosc; i++) // wielkosc to zmienna okreslajaca ile elementow ma drzewo
 	{
-		avl.dodaj(avl.korzen, rand() % 256); // losujemy z przedzialu od 0 do 256 i wstawiamy do drzewa
+		avl.dodaj(avl.korzen, rand() % 1000); // losujemy z przedzialu od 0 do 256 i wstawiamy do drzewa
 	}
 }
 
@@ -32,6 +32,7 @@ int main()
 		cout << "8. Przejscie inorder" << endl;
 		cout << "9. Utworz losowe drzewo o wskazanej ilosci elementow" << endl;
 		cout << "10. Wyjdz " << endl;
+		cout << "\n-----------------------" << endl;
 		cout << "Wybierz opcje: ";
 		cin >> wybor;
 		switch (wybor)
@@ -53,7 +54,7 @@ int main()
 		case 3:
 			cout << "Wprowadz element, ktory chcesz usunac : ";
 			cin >> wartosc;
-			//avl.usun(avl.korzen, wartosc);
+			avl.usun(avl.korzen, wartosc);
 			break;
 		case 4:
 			cout << "Wysokosc drzewa wynosi : " << avl.wysokosc(avl.korzen) << endl;
@@ -85,7 +86,7 @@ int main()
 			exit(1);
 			break;
 		default:
-			cout << "Wrong Choice" << endl;
+			cout << "Nie ma takiej opcji" << endl;
 		}
 	}
 	return 0;

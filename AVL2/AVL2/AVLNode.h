@@ -9,12 +9,18 @@ class avl_node
 {
 public:
 	int data;
-	struct avl_node *left;
-	struct avl_node *right;
+	avl_node *left;
+	avl_node *right;
 	avl_node(int k)
 	{
 		left = nullptr;
 		right = nullptr;
 		data = k;
+	}
+	~avl_node()
+	{	
+		delete left;
+		delete right;
+
 	}
 };

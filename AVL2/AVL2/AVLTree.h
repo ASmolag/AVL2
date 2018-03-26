@@ -29,4 +29,8 @@ public:
 	{
 		korzen = nullptr; // korzen poczatkowo jest null
 	}
+	~avlTree()
+	{
+		delete korzen;
+	}
 };

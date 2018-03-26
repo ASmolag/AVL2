@@ -154,11 +154,11 @@ void avlTree::wyswietl(avl_node *w, int poziom)
 */
 void avlTree::inorder(avl_node *drzewo)
 {
-	if (drzewo == nullptr)
-		return;
-	inorder(drzewo->left);
-	cout << drzewo->data << "  ";
-	inorder(drzewo->right);
+	if (drzewo == nullptr) // jezeli drzewo nie istniej
+		return;				// zwroc puste
+	inorder(drzewo->left); // wywo³aj dla lewego poddrzewa
+	cout << drzewo->data << "  "; // wyswietl klucz danego elementu
+	inorder(drzewo->right); // wywo³aj dla prawego poddrzewa 
 }
 
 
@@ -169,9 +169,9 @@ void avlTree::preorder(avl_node *drzewo)
 {
 	if (drzewo == nullptr)
 		return;
-	cout << drzewo->data << "  ";
-	preorder(drzewo->left);
-	preorder(drzewo->right);
+	cout << drzewo->data << "  "; // wyswietl klucz danego elementu
+	preorder(drzewo->left); // wywo³aj dla lewego poddrzewa
+	preorder(drzewo->right); // wywo³aj dla prawego poddrzewa 
 
 }
 
@@ -182,10 +182,56 @@ void avlTree::postorder(avl_node *drzewo)
 {
 	if (drzewo == nullptr)
 		return;
-	postorder(drzewo->left);
-	postorder(drzewo->right);
-	cout << drzewo->data << "  ";
+	postorder(drzewo->left); // wywo³aj dla lewego poddrzewa
+	postorder(drzewo->right); // wywo³aj dla prawego poddrzewa 
+	cout << drzewo->data << "  "; // wyswietl klucz danego elementu
 }
+
+avl_node* avlTree::minimum(avl_node* x) // funkcja potrzebna do usuwania 
+{
+	while (x->left != nullptr) x = x->left; // tak d³ugo jak lewy istnieje przechodz na lewo
+	this->korzen = x;
+	return x;
+}
+
+avl_node *avlTree::usun(avl_node *x, int klucz)
+{
+	if (x == nullptr) //jezeli x jest pusty
+	{
+		this->korzen = x; // korzen staje sie pusty 
+		return x; 
+	}
+	else if (klucz < x->data) x->left = usun(x->left, klucz); // jezeli klucz jest mniejszy to wywolujemy rekurencyjnie dla lewego
+	else if (klucz > x->data) x->right = usun(x->right, klucz);// jezeli  jest wiekszy to dla prawego 
+
+	else {
+
+		if (x->left == nullptr && x->right == nullptr) { // jezeli  jest lisciem to usuwamy
+			delete x;
+			x = nullptr;
+		}
+
+		else if (x->left == nullptr) { // jezeli lewy jest pusty 
+			avl_node *temp = x; // zmienna pomocnicza
+			x = x->right; // przechodzimy do prawego i usuwamy zmienna tymczasowa
+			delete temp;
+		}
+		else if (x->right == nullptr) { //jezeli  prawy jest pusty 
+			avl_node *temp = x;
+			x = x->left; // przechodzimy do lewego i usuwamy zmienna 
+			delete temp;
+		}
+
+		else {
+			avl_node *temp = minimum(x->right); // wywolanie funkcji minimum dla prawego poddrzewa
+			x->data = temp->data; // kluczem x staje sie klucz z minimum 
+			x->right = usun(x->right, temp->data); // wywow³anie funkcji usun dla prawego poddrzewa i klucza z minimum 
+		}
+	}
+	this->korzen = x; // korzeniem drzewa staje sie x 
+	return x;
+}
+
 
 
 
