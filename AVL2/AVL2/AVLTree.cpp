@@ -149,7 +149,43 @@ void avlTree::wyswietl(avl_node *w, int poziom)
 		wyswietl(w->left, poziom + 1);
 	}
 }
+/*
+* Przejscie inorder
+*/
+void avlTree::inorder(avl_node *drzewo)
+{
+	if (drzewo == nullptr)
+		return;
+	inorder(drzewo->left);
+	cout << drzewo->data << "  ";
+	inorder(drzewo->right);
+}
 
+
+/*
+* Przejscie preorder
+*/
+void avlTree::preorder(avl_node *drzewo)
+{
+	if (drzewo == nullptr)
+		return;
+	cout << drzewo->data << "  ";
+	preorder(drzewo->left);
+	preorder(drzewo->right);
+
+}
+
+/*
+* Przejscie postorder
+*/
+void avlTree::postorder(avl_node *drzewo)
+{
+	if (drzewo == nullptr)
+		return;
+	postorder(drzewo->left);
+	postorder(drzewo->right);
+	cout << drzewo->data << "  ";
+}
 
 
 

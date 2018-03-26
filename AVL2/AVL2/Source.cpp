@@ -2,7 +2,7 @@
 #include <ctime>
 #include <cstdio>
 using namespace std;
-//komentarz
+
 void utworz_drzewo(avlTree &avl, int wielkosc) 
 {
 	srand(time(NULL)); 
@@ -53,28 +53,27 @@ int main()
 		case 3:
 			cout << "Wprowadz element, ktory chcesz usunac : ";
 			cin >> wartosc;
-			//avl.Delete(avl.root, item);
+			//avl.usun(avl.korzen, wartosc);
 			break;
 		case 4:
 			cout << "Wysokosc drzewa wynosi : " << avl.wysokosc(avl.korzen) << endl;
 			break;
 		case 5:
-			cout << "Korzen:" << endl;
+			cout << "Korzen:" << avl.korzen->data<<endl;
 			break;
 		case 6:
 			cout << "Preorder Traversal:" << endl;
-			//avl.preorder(avl.root);
+			avl.preorder(avl.korzen);
 			cout << endl;
 			break;
 		case 7:
 			cout << "Postorder Traversal:" << endl;
-			//avl.postorder(avl.root);
+			avl.postorder(avl.korzen);
 			cout << endl;
-			
 			break;
 		case 8:
 			cout << "Inorder Traversal:" << endl;
-			//avl.inorder(avl.root);
+			avl.inorder(avl.korzen);
 			cout << endl;
 			break;
 		case 9:
