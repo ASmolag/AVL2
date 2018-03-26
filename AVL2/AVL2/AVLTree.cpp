@@ -80,14 +80,16 @@ avl_node *avlTree::balans(avl_node *w)
 	if (balans > 1) // jezeli ta zmienna wieksza od 1 to przewaza lewe poddrzewo
 	{
 		if (wsp_balansu(w->left) == 1) // jezeli wspolczynnik lewego poddrzewa rowny 1
-			w = rr(w);                 // to rotacja prawy prawy
+			w = ll(w);			// to rotacja lewy lewy
+		              
 		else if(wsp_balansu(w->left) == -1) // jezeli równy -1
 			w = lr(w);                      // to rotacja lewy prawy
 	}
 	else if (balans < -1) // jezeli zmienna mniejsza od -1 to przewaza prawe poddrzewo 
 	{
 		if (wsp_balansu(w->right) == -1) // jezeli wspolczynnik prawego rowny -1 
-			w = ll(w);                   // to rotacja lewy lewy 
+			w = rr(w); // to rotacja prawy prawy
+		  
 		else if(wsp_balansu(w->right)== 1) // jezeli rowny 1
 			w = rl(w);					   // to prawy lewy
 	}
@@ -147,5 +149,7 @@ void avlTree::wyswietl(avl_node *w, int poziom)
 		wyswietl(w->left, poziom + 1);
 	}
 }
+
+
 
 
