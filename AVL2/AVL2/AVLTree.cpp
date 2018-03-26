@@ -112,7 +112,7 @@ avl_node *avlTree::dodaj(avl_node *korzen, int klucz)
 	}
 	else if (klucz < korzen->data) // jezeli wpisany klucz jest mniejszy od obecnego w wezle
 	{
-		korzen->left = dodaj(root->left, klucz); // to przechodzimy do lewego poddrzewa i tam dodajemy
+		korzen->left = dodaj(korzen->left, klucz); // to przechodzimy do lewego poddrzewa i tam dodajemy
 		korzen = balans(korzen); // wykonujemy balans drzewa
 	}
 	else if (klucz > korzen->data) // jezeli wpisany klucz jest wiekszy od obecnego w wezle
@@ -128,3 +128,24 @@ avl_node *avlTree::dodaj(avl_node *korzen, int klucz)
 	this->korzen = korzen;
 	return korzen;
 }
+
+/*
+* Wyswietlanie drzewa - gotowa funkcja z internetu 
+*/
+void avlTree::wyswietl(avl_node *w, int poziom)
+{
+	int i;
+	if (w != nullptr)
+	{
+		wyswietl(w->right, poziom + 1);
+		printf("\n");
+		if (w == korzen)
+			cout << "Root -> ";
+		for (i = 0; i < poziom && w != korzen; i++)
+			cout << "        ";
+		cout << w->data;
+		wyswietl(w->left, poziom + 1);
+	}
+}
+
+
