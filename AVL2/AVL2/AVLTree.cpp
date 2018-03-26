@@ -63,10 +63,68 @@ avl_node *avlTree::lr(avl_node *rodzic) // rotacja wykonujaca rotacje w lewe i w
 /*
 * rotacja prawy lewy
 */
-avl_node *avlTree::rl_rotation(avl_node *rodzic)
+avl_node *avlTree::rl(avl_node *rodzic)
 {
 	avl_node *x;
 	x = rodzic->right;
 	rodzic->right = ll(x);
 	return rr(rodzic);
+}
+
+/*
+* balansowanie drzewa
+*/
+avl_node *avlTree::balans(avl_node *w)
+{
+	int balans = wsp_balansu(w); // zmienna przechowujaca roznice
+	if (balans > 1) // jezeli ta zmienna wieksza od 1 to przewaza lewe poddrzewo
+	{
+		if (wsp_balansu(w->left) == 1) // jezeli wspolczynnik lewego poddrzewa rowny 1
+			w = rr(w);                 // to rotacja prawy prawy
+		else if(wsp_balansu(w->left) == -1) // jezeli równy -1
+			w = lr(w);                      // to rotacja lewy prawy
+	}
+	else if (balans < -1) // jezeli zmienna mniejsza od -1 to przewaza prawe poddrzewo 
+	{
+		if (wsp_balansu(w->right) == -1) // jezeli wspolczynnik prawego rowny -1 
+			w = ll(w);                   // to rotacja lewy lewy 
+		else if(wsp_balansu(w->right)== 1) // jezeli rowny 1
+			w = rl(w);					   // to prawy lewy
+	}
+	return w;
+}
+
+/*
+* Dodawanie elementu do drzewa
+*/
+
+
+avl_node *avlTree::dodaj(avl_node *korzen, int klucz)
+{
+	if (korzen == nullptr) // jezli nie ma korzenia
+	{
+		korzen = new avl_node(klucz); // to korzeniem staje sie nowy wezelo
+		//root->data = value;
+		//root->left = NULL;
+		//root->right = NULL;
+		this->korzen = korzen;
+		return korzen;
+	}
+	else if (klucz < korzen->data) // jezeli wpisany klucz jest mniejszy od obecnego w wezle
+	{
+		korzen->left = dodaj(root->left, klucz); // to przechodzimy do lewego poddrzewa i tam dodajemy
+		korzen = balans(korzen); // wykonujemy balans drzewa
+	}
+	else if (klucz > korzen->data) // jezeli wpisany klucz jest wiekszy od obecnego w wezle
+	{
+		korzen->right = dodaj(korzen->right, klucz); // to przechodzimy do lewego poddrzewa i tam dodajemy
+		korzen = balans(korzen); // wykonujemy balans 
+	}
+	else if (klucz == korzen->data) // jezli juz istnieje element
+	{
+		cout << "istnieje juz taki element" << endl;
+		//return korzen;
+	}
+	this->korzen = korzen;
+	return korzen;
 }
